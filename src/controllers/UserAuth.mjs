@@ -1,6 +1,4 @@
-import jws from 'jws'
-import {getRandomValues} from 'node:crypto'
-import AuthUtils from '../utils/auth.mjs'
+import AuthUtils from '../utils/auth/Auth.mjs'
 
 class UserAuth{
 
@@ -10,28 +8,12 @@ class UserAuth{
 
         //verificar banco
 
-        //add refresh no user
 
-        const header = {
-            alg: "HS256",
-            typ: "JWT"
-        }
+        //token de acesso
+        const signature = AuthUtils.JWTtoken('1', 'test')//🐳parametros em string🐳
 
-        const payload = {
-            id: 1,
-            role: "test",
-            iat: "hoje",
-            exp: "amanha",
-        }
-
-        let secret = '12345'
-
-        const signature = jws.sign({
-        header: header,
-        payload: payload,
-        secret: process.env.JWT_SECRET,
-});
-        const refresh = AuthUtils.generatorRefreshToken()
+        //token de resgate do token de acesso
+        const refresh = AuthUtils.generatorRefreshToken()//por no banco
 
         res.send({JWT: signature, refresh: refresh})
 
@@ -45,8 +27,18 @@ class UserAuth{
 
     static async refreshToken(req, res) {
         
-        
+        //pegando o refresh token do header
+        const authHeader = req.get('Authorization')
 
+        const refreshToken = authHeader.split(' ')
+        
+        refreshToken[1]//comparar com o banco de dados
+
+        //recriar token de acesso
+        const signature = AuthUtils.JWTtoken('1', 'test')//🐳parametros em string🐳
+
+        res.send({JWT: signature})
+        
     }
 }
 
