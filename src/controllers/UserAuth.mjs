@@ -32,12 +32,16 @@ class UserAuth{
 
         const refreshToken = authHeader.split(' ')
         
-        refreshToken[1]//comparar com o banco de dados
+        refreshToken[1]//🐳comparar com o banco de dados🐳
+
+        const newRefreshToken = AuthUtils.generatorRefreshToken()//🐳criando um novo refresh token🐳
+
+        newRefreshToken//🐳adicionar o refresh token no banco🐳
 
         //recriar token de acesso
-        const signature = AuthUtils.JWTtoken('1', 'test')//🐳parametros em string🐳
+        const signature = AuthUtils.JWTtoken('1', 'test')//🐳parametros em string(id, role)🐳
 
-        res.send({JWT: signature})
+        res.send({JWT: signature, refresh: newRefreshToken})
         
     }
 }
