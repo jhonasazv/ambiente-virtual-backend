@@ -12,7 +12,7 @@ class AuthUtils{
     static JWTtime() {
 
         const dateNow = new Date()
-        let dateFuture = new Date()
+        const dateFuture = new Date()
 
         dateFuture.setTime(dateNow.getTime() + 10 * 60 * 1000)
 
