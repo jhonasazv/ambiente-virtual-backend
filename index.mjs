@@ -8,7 +8,6 @@ dotenv.config()
 
 const app = express()
 
-app.use(rateLimiterlogin)
 app.use(express.urlencoded())
 app.use(express.json())
 //app.use(cookieParser('adaafmijanwfgi3131145palaofmaom522gdbbsdrjkoFGKAJBIfokmaow'))
