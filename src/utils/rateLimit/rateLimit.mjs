@@ -15,8 +15,8 @@ const rateLimiterGeral = rateLimit(rateLimiterModeloGeral)//🐳rate limit geral
 
 
 const rateLimiterCustomLogin = rateLimiterModeloGeral
-rateLimiterModeloGeral.windowMs = 30 * 60 * 1000
-rateLimiterModeloGeral.limit = 8
+rateLimiterModeloGeral.windowMs = 10 * 60 * 1000
+rateLimiterModeloGeral.limit = 12
 rateLimiterModeloGeral.message = { error: 'muitas tentativas de login em curto tempo, tente de novo depois' }
 
 const rateLimiterlogin = rateLimit(rateLimiterCustomLogin)//🐳rate limit para logins🐳
