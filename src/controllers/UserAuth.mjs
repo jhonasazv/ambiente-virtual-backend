@@ -1,11 +1,14 @@
 import AuthUtils from '../utils/auth/Auth.mjs'
+import LoginValidation from '../utils/validation-sanitizer/LoginValidation.mjs'
 
 class UserAuth{
 
     static login(req, res) {
         
-        //const {name, password} = req.body
+         const {email, senha} = req.body
 
+        const senhaValidada = LoginValidation.loginSenha(senha)
+        const emailValido = LoginValidation.loginEmail(email)
         //verificar banco
 
 
@@ -14,9 +17,29 @@ class UserAuth{
 
         //token de resgate do token de acesso
         const refresh = AuthUtils.generatorRefreshToken()//por no banco
+        
+        //res.send({JWT: signature, refresh: refresh})
+        res.send({email: emailValido, senha: senhaValidada})
+    }
 
-        res.send({JWT: signature, refresh: refresh})
+    static register(req, res) {
+        
+        const {nome, email, senha} = req.body
 
+        const nomeValidado = LoginValidation.loginNome(nome)
+        const senhaValidada = LoginValidation.loginSenha(senha)
+        const emailValido = LoginValidation.loginEmail(email)
+        //verificar banco
+
+
+        //token de acesso
+        const signature = AuthUtils.JWTtoken('1', 'test')//🐳parametros em string🐳
+
+        //token de resgate do token de acesso
+        const refresh = AuthUtils.generatorRefreshToken()//por no banco
+        
+        //res.send({JWT: signature, refresh: refresh})
+        res.send({nome: nomeValidado, email: emailValido, senha: senhaValidada})
     }
 
     static async logout(req, res) {

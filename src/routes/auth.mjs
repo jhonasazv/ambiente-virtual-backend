@@ -7,6 +7,8 @@ const authRoute = express.Router()
 
 authRoute.post('/login', rateLimiterlogin, UserAuth.login)
 
-authRoute.post('/refresh', AuthMiddleware.verifyAuth, UserAuth.refreshToken)
+authRoute.post('/register', rateLimiterlogin, UserAuth.register)
+
+authRoute.post('/refresh', UserAuth.refreshToken)
 
 export default authRoute
