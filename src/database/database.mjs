@@ -2,10 +2,10 @@ import pg from 'pg'
 //const {Client} = pg
 
 const clientConfig = {
-  user: "postgres",
-  password: "joao9604346",
-  port: 5432,
-  database: "postgres",
+  user: process.env.USER_DB,
+  password: process.env.PASSWORD_DB,
+  port: process.env.PORT_DB,
+  database: process.env.DATABASE,
 }
 
 /* USER_DB = "postgres"
