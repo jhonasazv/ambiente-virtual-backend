@@ -21,7 +21,7 @@ class LoginValidation {
         })
         if (!validated) return {success: false, motivo: 'senha fraca'}
         
-        return {success: validated, textoValidado: sanitized}
+        return sanitized
     }
 
     static loginNome(input) {
@@ -37,7 +37,7 @@ class LoginValidation {
         validated = validator.isLength(sanitized, {max:35})
         if (!validated) return {success: false, motivo: 'nome muito grande'}
 
-        return {success: validated, textoValidado: sanitized}
+        return sanitized
     }
 
     static loginEmail(input) {
@@ -56,7 +56,7 @@ class LoginValidation {
         validated = validator.isLength(sanitized, {max:35})
         if (!validated) return {success: false, motivo: 'nome muito grande'}
 
-        return {success: validated, textoValidado: sanitized}
+        return sanitized
     }
 }
 

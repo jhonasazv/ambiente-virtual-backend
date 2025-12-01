@@ -15,7 +15,7 @@ class AuthUtils{
         const dateNow = new Date()
         const dateFuture = new Date()
 
-        dateFuture.setTime(dateNow.getTime() + 10 * 60 * 1000)
+        dateFuture.setTime(dateNow.getTime() + 5 * 24 * 60 * 60 * 1000)
 
         const dateIOT = dateNow.getTime()
         const dateEXP = dateFuture.getTime()

@@ -8,7 +8,7 @@ import Contatos from '../models/Contatos.mjs'
 
 const authRoute = express.Router()
 
-authRoute.post('/login', rateLimiterlogin, UserAuth.login)
+authRoute.post('/login', UserAuth.login)
 
 authRoute.post('/register', rateLimiterlogin, UserAuth.register)
 

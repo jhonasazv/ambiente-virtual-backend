@@ -62,17 +62,10 @@ class Contatos{
     static async compararParaEnviarProDB(contatosCelular) {
 
         const contatosDB = await Contatos.getContatos(contatosCelular[0].usuarioId)
-        console.log(contatosDB.rows)
-        console.log(contatosCelular)
+
         function notMatchingByNome(arr1, arr2) {
-    console.log("ARR1:", arr1)
-    console.log("ARR2:", arr2)
-
     const set2 = new Set(arr2.map(a => a.nome))
-    console.log("SET2:", [...set2])
-
     const result = arr1.filter(a => !set2.has(a.nome))
-    console.log("RESULT:", result)
 
     return result
 }

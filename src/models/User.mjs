@@ -32,9 +32,10 @@ class User{
         const client = await User.getClient()
         
         await client.connect()
+        console.log(email, senha)
         
         const query = {
-            text: "select * from segunda.usuarios where email = 1$ and senha = $2",
+            text: "select * from segunda.usuarios where email = $1 and senha = $2",
             values: [email, senha]
         }
         const fetch = await client.query(query)
@@ -50,7 +51,7 @@ class User{
         await client.connect()
         
         const query = {
-            text: "select * from segunda.usuarios where email = 1$",
+            text: "select * from segunda.usuarios where email = $1",
             values: [email]
         }
         const fetch = await client.query(query)
@@ -59,15 +60,15 @@ class User{
         return fetch.rows[0]
     }
 
-    static async createUser(nome, email, senha, token) {//NAO SEI SEVOU MANTER
+    static async createUser(nome, email, senha) {//NAO SEI SEVOU MANTER
 
         const client = await User.getClient()
         
         await client.connect()
 
          const query = {
-            text: "insert into segunda.usuarios (nome, email, senha, refreshToken) values($1, $2, $3, $4)",
-            values: [nome, email, senha, token]
+            text: "insert into segunda.usuarios (nome, email, senha) values($1, $2, $3)",
+            values: [nome, email, senha]
         }
         const fetch = await client.query(query)
         await client.end()
