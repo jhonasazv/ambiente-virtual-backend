@@ -1,5 +1,6 @@
 import {getRandomValues} from 'node:crypto'
 import jws from 'jws'
+import {createHash} from 'crypto'
 
 class AuthUtils{
 
@@ -35,7 +36,7 @@ class AuthUtils{
         const date = AuthUtils.JWTtime()
         const payload = {
             id: id,
-            role: role,
+            nome: role,
             iat: date.IOT,
             exp: date.EXP,
         }
@@ -47,6 +48,13 @@ class AuthUtils{
         });        
 
         return signature
+    }
+
+    static passwordHash(senha) {
+
+        const hash = createHash('sha256').update(senha).digest('hex');
+  
+        return hash
     }
 }
 

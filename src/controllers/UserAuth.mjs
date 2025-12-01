@@ -1,16 +1,21 @@
 import AuthUtils from '../utils/auth/Auth.mjs'
 import LoginValidation from '../utils/validation-sanitizer/LoginValidation.mjs'
 
+import User from '../models/User.mjs'
+
 class UserAuth{
 
-    static login(req, res) {
+    static async login(req, res) {
         
          const {email, senha} = req.body
 
         const senhaValidada = LoginValidation.loginSenha(senha)
         const emailValido = LoginValidation.loginEmail(email)
+        const senhaHash = AuthUtils.passwordHash(senha)
         //verificar banco
 
+        /* const user = await User.getUserLogin(email, senhaHash)
+        if (user.rowCount == 0) return res.send({error: 'login errado'}) */
 
         //token de acesso
         const signature = AuthUtils.JWTtoken('1', 'test')//🐳parametros em string🐳
@@ -18,11 +23,11 @@ class UserAuth{
         //token de resgate do token de acesso
         const refresh = AuthUtils.generatorRefreshToken()//por no banco
         
-        //res.send({JWT: signature, refresh: refresh})
-        res.send({email: emailValido, senha: senhaValidada})
+        res.send({JWT: signature, refresh: refresh})
+        //res.send({email: emailValido, senha: senhaValidada})
     }
 
-    static register(req, res) {
+    static async register(req, res) {
         
         const {nome, email, senha} = req.body
 
@@ -31,15 +36,21 @@ class UserAuth{
         const emailValido = LoginValidation.loginEmail(email)
         //verificar banco
 
+        const user = await User.getUser(email)
+        if (user.rowCount == 1) return res.send({erro: 'email ja usado'})
 
         //token de acesso
         const signature = AuthUtils.JWTtoken('1', 'test')//🐳parametros em string🐳
 
         //token de resgate do token de acesso
         const refresh = AuthUtils.generatorRefreshToken()//por no banco
+
+        const senhaHash = AuthUtils.passwordHash(senha)
+
+        await User.createUser(nome, email, senhaHash, refresh)
         
-        //res.send({JWT: signature, refresh: refresh})
-        res.send({nome: nomeValidado, email: emailValido, senha: senhaValidada})
+        res.send({JWT: signature, refresh: refresh})
+        //res.send({nome: nomeValidado, email: emailValido, senha: senhaValidada})
     }
 
     static async logout(req, res) {

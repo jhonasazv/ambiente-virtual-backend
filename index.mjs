@@ -7,6 +7,7 @@ import {rateLimiterGeral, rateLimiterlogin} from './src/utils/rateLimit/rateLimi
 dotenv.config()
 
 const app = express()
+app.use(express.static("test"))
 
 app.use(express.urlencoded())
 app.use(express.json())
